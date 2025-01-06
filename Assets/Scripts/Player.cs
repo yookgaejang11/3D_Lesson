@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public float speed = 2.0f;
     Animator animator;
     bool isWalk = false;
+    public bool isAttackCheck = false;
+    int hp = 2;
+    bool isStop = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +67,7 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             animator.SetTrigger("isAttack");
+
         }
     }
 
@@ -79,6 +83,18 @@ public class Player : MonoBehaviour
             Vector3 mousePoint = ray.GetPoint(rayLength);
 
             this.transform.LookAt(new Vector3(mousePoint.x, this.transform.position.y, mousePoint.z));
+        }
+    }
+
+    public void SetHp(int damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            hp = 0;
+            Debug.Log("GameOver");
+            animator.SetTrigger("Death");
+            isStop = true;
         }
     }
 }

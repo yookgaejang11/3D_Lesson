@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     Animator animator;
     bool isWalk = false;
     public bool isAttackCheck = false;
-    int hp = 2;
+    int hp = 10;
     bool isStop = false;
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Walk();
-        Attack();
-        Rotation();
+        if (!isStop)
+        {
+            Walk();
+            StartCoroutine("Attack");
+            Rotation();
+        }
     }
 
     void Walk()
@@ -62,12 +65,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Attack()
+    IEnumerator Attack()
     {
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             animator.SetTrigger("isAttack");
-
+            isAttackCheck = true;
+            yield return new WaitForSeconds(0.5f);
+            isAttackCheck = false;
         }
     }
 
@@ -89,7 +94,7 @@ public class Player : MonoBehaviour
     public void SetHp(int damage)
     {
         hp -= damage;
-        if (hp <= 0)
+        if (hp <= 0 && !isStop)
         {
             hp = 0;
             Debug.Log("GameOver");

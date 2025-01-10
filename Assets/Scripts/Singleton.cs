@@ -13,7 +13,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             if (_instance == null)
             {
                 _instance = FindObjectOfType(typeof(T)) as T;
-                if (_instance != null)
+                if (_instance == null)
                 {
                     Debug.LogError("현재 씬에서" + typeof(T) + "를 활성화 할 수 없습니다.");
                 }

@@ -11,6 +11,12 @@ public class Player : MonoBehaviour
     public bool isAttackCheck = false;
     int hp = 10;
     bool isStop = false;
+
+    public GameObject PrefabBullet;
+    public Transform BulletPoint;
+    public float BulletDelay = 1.0f;
+    public float BulletTime = 0f;
+    bool isBullet = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +30,9 @@ public class Player : MonoBehaviour
         if (!isStop)
         {
             Walk();
-            StartCoroutine("Attack");
+            //StartCoroutine("Attack");
             Rotation();
+            Attack();
         }
     }
 
@@ -65,16 +72,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator Attack()
-    {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            animator.SetTrigger("isAttack");
-            isAttackCheck = true;
-            yield return new WaitForSeconds(0.5f);
-            isAttackCheck = false;
-        }
-    }
+    //IEnumerator Attack()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+    //    {
+    //        animator.SetTrigger("isAttack");
+    //        isAttackCheck = true;
+    //        yield return new WaitForSeconds(0.5f);
+    //        isAttackCheck = false;
+    //    }
+    //}
 
     void Rotation()
     {
@@ -102,4 +109,34 @@ public class Player : MonoBehaviour
             isStop = true;
         }
     }
+
+    void Attack()
+    {
+        if(isBullet)
+        {
+            BulletTime += Time.deltaTime;
+
+            if(BulletTime >= BulletDelay)
+            {
+                isBullet = false;
+                BulletTime = 0;
+            }
+        }
+        if(!isBullet)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                isBullet = true;
+                animator.SetTrigger("isAttack");
+                Invoke("SpawnBullet", 0.2f);
+            }
+        }
+    }
+
+    void SpawnBullet()
+    {
+        Instantiate(PrefabBullet, BulletPoint.position, this.transform.rotation);
+    }
+
+    
 }

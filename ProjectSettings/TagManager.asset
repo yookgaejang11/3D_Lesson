@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Hp_Item
+  - Speed_Item
   layers:
   - Default
   - TransparentFX

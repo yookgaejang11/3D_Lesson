@@ -29,18 +29,29 @@ public class MainMenu : MonoBehaviour
         SliderMusic.onValueChanged.AddListener(delegate { MusicValueChange(); }); //delegate = 대리자(놀이공원에 대신 줄서주는 느낌 AddListener(들을준비)가 되면 함수 실행(여러개 줄 설 수있음)
         SliderSound.onValueChanged.AddListener(delegate { SoundValueChange(); });
 
-        
-        
+        if(PlayerPrefs.HasKey("MusicVolume"))
+        {
+            musicVolume = PlayerPrefs.GetFloat("MusicVolume", SliderMusic.value);
+        }
+        SliderMusic.value = musicVolume;
+        if (PlayerPrefs.HasKey("SoundVolume"))
+        {
+            musicVolume = PlayerPrefs.GetFloat("SoundVolume", SliderSound.value);
+        }
+        SliderSound.value = soundVolume;
+
     }
 
     void MusicValueChange()
     {
         Debug.Log(SliderMusic.value);
+        PlayerPrefs.SetFloat("MusicVolume", SliderMusic.value);
     }
 
     void SoundValueChange()
     {
         Debug.Log(SliderSound.value);
+        PlayerPrefs.SetFloat("SoundVolume", SliderSound.value);
     }
 
 

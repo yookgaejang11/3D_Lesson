@@ -55,9 +55,10 @@ public class CsvDataManager : MonoBehaviour
         Debug.Log(dataDictionary["2"].No + dataDictionary["2"].User + dataDictionary["2"].Score);
         Debug.Log(dataDictionary["3"].No + dataDictionary["3"].User + dataDictionary["3"].Score);*/
 
-        for(int i = 1; i <= dataDictionary.Count; i++)
+        for (int i = 1; i <= dataDictionary.Count; i++)
         {
-            Debug.Log(dataDictionary[i.ToString()].No +" "+ dataDictionary[i.ToString()].User + " " +  dataDictionary[i.ToString()].Score);
+            //objname == 오브젝트 키 값, 딕셔너리 값(No)
+            Debug.Log("Num" + GetObjData(i.ToString(), GameScore.No)+ " " + "User" + GetObjData(i.ToString(), GameScore.User) + " " +"Score" + GetObjData(i.ToString(), GameScore.Score));
         }
 
         /*string[] datas = csvFile.text.Split("\n");
@@ -122,7 +123,7 @@ public class CsvDataManager : MonoBehaviour
             return data;
         }
 
-        switch (dataName)
+        switch (dataName)//
         {
             case GameScore.No:
                 data = dataDictionary[objName].No.ToString();

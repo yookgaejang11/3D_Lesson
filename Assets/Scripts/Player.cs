@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public CreateInventory createInventory;
     CharacterController characterController;
     public float speed = 2.0f;
     public float itemSpeed = 8.0f;
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        createInventory= GameObject.Find("Canvas").GetComponent<CreateInventory>();
         characterController = this.GetComponent<CharacterController>();
         animator = this.GetComponent<Animator>();
     }
@@ -151,13 +154,15 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Hp_Item"))
         {
-            ItemPotion();
-            Destroy(other.gameObject);
+            Item item = other.AddComponent<Item>();
+            createInventory.item.Add(item);
+            other.gameObject.SetActive(false);
         }
         if (other.gameObject.CompareTag("Speed_Item"))
         {
-            ItemSpeed();
-            Destroy(other.gameObject);
+            Item item = other.AddComponent<Item>();
+            createInventory.item.Add(item);
+            other.gameObject.SetActive(false);
         }
     }
 

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public int whtPotion;
+    public string name;
+    public Sprite img;
+
+public int whtPotion;
     public GameObject Hp_Item;
     public GameObject Speed_Item;
     public enum Items

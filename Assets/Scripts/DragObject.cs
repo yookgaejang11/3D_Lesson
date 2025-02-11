@@ -11,7 +11,7 @@ public class DragObject : MonoBehaviour,
 
     public Transform parentTr;
 
-    private Vector2 beginPoint;
+    public Vector2 beginPoint;
     private Vector2 moveBegin;
     private Transform beginParent;
     GameObject canvas;
@@ -41,7 +41,17 @@ public class DragObject : MonoBehaviour,
         {
             this.transform.SetParent(beginParent);
             this.GetComponent <RectTransform>().anchoredPosition = Vector2.zero;
+           
         }
+        if (this.GetComponent<RectTransform>().parent.childCount > 2)
+        {
+            Transform childObject = this.transform.parent.GetChild(1);
+            childObject.SetParent(beginParent);
+            childObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            
+
+        }
+
     }
 
     public void OnBeginDrag(PointerEventData eventData)

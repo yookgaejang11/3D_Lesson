@@ -32,7 +32,6 @@ public class CreateInventory : MonoBehaviour
         Item i = new Item();
         item.Add(i);
 
-        SetItem(item);
 
         inventory.SetActive(false);
     }
